@@ -11,13 +11,16 @@ const BottomBar = () => {
     const routes = useRoutes()
     const navigate = useNavigate()
     return (
-        <div className="md:hidden fixed bottom-0 left-0 w-full bg-[#131313] h-[50px] space-y-5">
+        <div className="md:hidden fixed bottom-0 left-0 w-full bg-[#131313] h-[50px] space-y-5 z-50">
             <div className="w-full flex items-center justify-between h-full">
                 {routes.map(route => (
 
                     <div
-                        onClick={() => navigate(route.href)}
-                        className={`w-full h-full flex items-center justify-center cursor-pointer border-r hover:bg-[#333333] transition ${route.active ? 'bg-[#333333]' : ''}`}
+                    onClick={() => {
+                        console.log(`Navigating to ${route.href}`);
+                        navigate(route.href);
+                    }}
+                    className={`w-full h-full flex items-center justify-center cursor-pointer border-r hover:bg-[#333333] transition ${route.active ? 'bg-[#333333]' : ''}`}
                     >
                         <ActionTooltip
                             label={route.label}

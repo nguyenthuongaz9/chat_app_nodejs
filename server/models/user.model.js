@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    isSetupProfile:{
+        type: Boolean,
+        default: false
+    },
     isVerify:{
         type: Boolean,
         default: false
@@ -55,7 +59,8 @@ const userSchema = new mongoose.Schema({
     verifycationTokenExpiresAt: {
         type: Date,
         default: null
-    }
+    },
+    
 
 
 },{timestamps: true})

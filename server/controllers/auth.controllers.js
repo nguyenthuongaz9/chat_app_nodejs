@@ -6,7 +6,6 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-
 const generateToken = (res, userId) => {
     const token = jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '3d' })
 
@@ -84,6 +83,8 @@ export const register = async (req, res, next) => {
                 lastName: newUser.lastName,
                 email: newUser.email,
                 isVerify: newUser.isVerify,
+                isSetupProfile: newUser.isSetupProfile,
+                imageUrl: newUser.imageUrl,
             }
         });
 
@@ -125,6 +126,8 @@ export const login = async (req, res, next) => {
                 lastName: existingUser.lastName,
                 email: existingUser.email,
                 isVerify: existingUser.isVerify,
+                isSetupProfile: existingUser.isSetupProfile,
+                imageUrl: existingUser.imageUrl,
             }
         })
 
@@ -203,8 +206,6 @@ export const checkAuth = async (req, res) => {
             return res.status(400).json({ success: false, message: "User not found" });
         }
 
-        console.log(user)
-
         res.status(200).json({
             success: true, user: {
                 id: user._id,
@@ -212,6 +213,8 @@ export const checkAuth = async (req, res) => {
                 lastName: user.lastName,
                 email: user.email,
                 isVerify: user.isVerify,
+                isSetupProfile: user.isSetupProfile,
+                imageUrl: user.imageUrl,
             }
         });
     } catch (error) {

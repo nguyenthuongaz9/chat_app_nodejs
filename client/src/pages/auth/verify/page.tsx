@@ -5,13 +5,12 @@ import { Input } from "@/components/ui/input";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 
 const Verify = () => {
   
 
   const { user } = useAuthStore()
-  console.log(user)
+
   const { register, handleSubmit, formState: { errors} } = useForm({
     defaultValues: {
       code: ''

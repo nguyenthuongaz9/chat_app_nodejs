@@ -1,8 +1,14 @@
+import ConversationEmpty from "@/components/ConversationEmpty"
 
 
 const UserPage = () => {
   return (
-    <div>UserPage</div>
+    <div className="w-full h-full hidden lg:block">
+      <ConversationEmpty/>
+     
+    </div>
+    
+  
   )
 }
 

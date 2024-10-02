@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Auth from './pages/auth/page';
 import VerifyLayout from './pages/auth/verify/layout';
-import { useEffect } from 'react';
+import { useMemo } from 'react';
 import { useAuthStore } from './hooks/useAuthStore';
 import { Loader2 } from 'lucide-react';
-import Rootlayout from './pages/layout';
+import RootLayout from './pages/layout';
 import UserLayout from './pages/users/layout';
+import SetupPage from './pages/setup/page';
+import ConversationIdLayout from './pages/conversationId/layout';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, user, isCheckingAuth } = useAuthStore();
@@ -14,46 +16,74 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return <div className='text-white'>Checking Auth...</div>;
   }
 
-  if (!isAuthenticated || !user) {
+  if (!isAuthenticated || !user || !user.isVerify || !user.isSetupProfile) {
     return <Navigate to='/auth' replace />;
   }
-
-  if (!user.isVerify) {
+  if(!user.isVerify){
     return <Navigate to='/verify-email' replace />;
+  }
+  if(!user.isSetupProfile){
+    return <Navigate to='/setup-profile' replace />;
   }
 
   return <>{children}</>;
 };
+
+
 
 const VerifyRoute = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAuthStore();
   if (!user?.isVerify) {
     return <>{children}</>;
   }
-  return <Navigate to='/' replace />;
 
+  return <Navigate to='/conversations' replace />;
 };
 
-
-
-
 const AuthRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated , user } = useAuthStore();
 
-  return !isAuthenticated ? <>{children}</> : <Navigate to="/conversations" />;
-}
+  if(!isAuthenticated){
+    return <>{children}</>;
+  }
+  if(!user.isVerify){
+    return <Navigate to='/verify-email' replace />;
+  }
+  if(!user.isSetupProfile){
+    return <Navigate to='/setup-profile' replace />;
+  }
+
+  return <Navigate to='/conversations' replace />;
+
+ 
+};
+
+const SetUpProfileRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user } = useAuthStore();
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
+
+  if (!user.isSetupProfile) {
+    return <>{children}</>;
+  }
+
+  return <Navigate to="/conversations" replace />;
+};
 
 const App = () => {
   const { isCheckingAuth, checkAuth } = useAuthStore();
 
-  useEffect(() => {
+  useMemo(() => {
     checkAuth();
   }, [checkAuth]);
 
   if (isCheckingAuth) {
-    return <div className='w-full h-screen flex items-center justify-center'>
-      <Loader2 size={40} className='animate-spin text-white'/>
-    </div>;
+    return (
+      <div className='w-full h-screen flex items-center justify-center'>
+        <Loader2 size={40} className='animate-spin text-white' />
+      </div>
+    );
   }
 
   return (
@@ -70,7 +100,7 @@ const App = () => {
         <Route
           path="/verify-email"
           element={
-            <VerifyRoute>
+            <VerifyRoute>/
               <VerifyLayout />
             </VerifyRoute>
           }
@@ -79,8 +109,25 @@ const App = () => {
           path="/conversations"
           element={
             <ProtectedRoute>
-              <Rootlayout />
+              <RootLayout />
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/conversations/:id"
+          element={
+            <ProtectedRoute>
+              <ConversationIdLayout />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/setup-profile"
+          element={
+            <SetUpProfileRoute>
+              <SetupPage />
+            </SetUpProfileRoute>
           }
         />
         <Route

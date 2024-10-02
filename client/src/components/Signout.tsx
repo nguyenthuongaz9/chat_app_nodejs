@@ -5,9 +5,9 @@ import React from 'react'
 import { Button } from './ui/button'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
 
-const Signout = ({
+
+const SignOut = ({
     children
 }: {
     children: React.ReactNode
@@ -32,4 +32,4 @@ const Signout = ({
     )
 }
 
-export default Signout
+export default SignOut
