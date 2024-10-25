@@ -7,7 +7,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 
 
-const SignOut = ({
+export const Logout = ({
     children,
     className
 }: {
@@ -34,4 +34,3 @@ const SignOut = ({
     )
 }
 
-export default SignOut

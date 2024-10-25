@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { useAuthStore } from "@/hooks/useAuthStore"
 import { UserAvatar } from "../UserAvatar"
 import { IoLogOutOutline } from "react-icons/io5";
-import SignOut from "../SignOut"
+import { Logout } from "../Logout"
 
 
 
@@ -51,9 +51,9 @@ const NavigationAction = () => {
                     side="right"
 
                 >
-                    <SignOut>
+                    <Logout>
                         <IoLogOutOutline size={25} className="text-white" />
-                    </SignOut>
+                    </Logout>
 
                 </ActionTooltip>
                 <ActionTooltip

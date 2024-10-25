@@ -81,7 +81,7 @@ export function UserModal() {
 
 
     return (
-        <Dialog open={isModalOpen} onOpenChange={(e) => onClose()}>
+        <Dialog open={isModalOpen} onOpenChange={() => onClose()}>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle>Edit profile</DialogTitle>

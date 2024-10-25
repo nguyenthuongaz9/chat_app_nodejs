@@ -60,7 +60,7 @@ const ListConversation = () => {
     );
   }
 
-  console.log(data)
+
 
 
   return (
@@ -74,19 +74,19 @@ const ListConversation = () => {
       >
         {data.pages.map((page, pageIndex) =>
           page.conversations.map((conversation: any, userIndex: number) => {
-            const otherParticipants = conversation.participants.filter((participant: any) => participant._id !== user.id);
+            const otherParticipants = conversation?.participants?.filter((participant: any) => participant._id !== user.id);
             const otherUser = otherParticipants[0];
-            const isOnline = activeUsers.includes(otherUser._id)
+            const isOnline = activeUsers?.includes(otherUser?._id)
 
 
             return (
               <div
-                key={`${conversation._id}-${pageIndex}-${userIndex}`}
+                key={`${conversation?._id}-${pageIndex}-${userIndex}`}
                 className="w-full flex gap-5 bg-zinc-700 pl-5 md:py-3 py-2 rounded-md items-center cursor-pointer hover:bg-zinc-600 transition"
-                onClick={() => navigate(`/conversations/${conversation._id}`)}
+                onClick={() => navigate(`/conversations/${conversation?._id}`)}
               >
                 <div className="relative">
-                  {conversation.isGroup ? (
+                  {conversation?.isGroup ? (
                     <img
                       className="md:w-14 md:h-14 h-10 w-10 object-cover rounded-full"
                       src={DEFAULT_GROUP_IMAGE}
@@ -97,7 +97,7 @@ const ListConversation = () => {
 
                     <img
                       className="md:w-14 md:h-14 h-10 w-10 object-cover rounded-full"
-                      src={otherUser.imageUrl}
+                      src={otherUser?.imageUrl}
                       alt="image user"
                     />
                   )}
@@ -107,20 +107,20 @@ const ListConversation = () => {
 
                 </div>
                 <div className="flex flex-col gap-1">
-                  {conversation.isGroup ? (
+                  {conversation?.isGroup ? (
                     <div className="flex gap-2">
                       <p className="text-white font-semibold md:text-lg text-md">
-                        {conversation.title}
+                        {conversation?.title}
                       </p>
 
                     </div>
                   ) : (
                     <div className="flex gap-2">
                       <p className="text-white font-semibold md:text-lg text-md">
-                        {otherUser.firstName}
+                        {otherUser?.firstName}
                       </p>
                       <p className="text-white font-semibold md:text-lg text-md">
-                        {otherUser.lastName}
+                        {otherUser?.lastName}
                       </p>
                     </div>
 
@@ -135,7 +135,6 @@ const ListConversation = () => {
                     }
 
                   </div>
-
 
                 </div>
 

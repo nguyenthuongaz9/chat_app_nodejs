@@ -20,7 +20,7 @@ const ConversationHeader = ({
 
     const { user } = useAuthStore()
 
-    const participant = _.find(conversation.participants, (participant) => _.toString(participant._id) !== _.toString(user.id));
+    const participant = _.find(conversation?.participants, (participant) => _.toString(participant?._id) !== _.toString(user?.id));
 
 
     return (
@@ -59,20 +59,20 @@ const ConversationHeader = ({
                             size={32}
                         />
                     </Link>
-                    {conversation.isGroup ? (
+                    {conversation?.isGroup ? (
                         <div className="flex items-center gap-2" >
                             <img className="h-10 w-10 rounded-full" src={DEFAULT_GROUP_IMAGE} alt="" />
                             <p className="text-white">
-                                {conversation.title}
+                                {conversation?.title}
                             </p>
                         </div>
                     ) : (
                         <div className="flex items-center gap-2" >
-                            <img className="h-10 w-10 rounded-full" src={participant.imageUrl} alt="" />
+                            <img className="h-10 w-10 rounded-full" src={participant?.imageUrl} alt="" />
 
                             <p className="text-white">
 
-                                {participant.firstName} {participant.lastName}
+                                {participant?.firstName} {participant?.lastName}
                             </p>
                         </div>
                     )}

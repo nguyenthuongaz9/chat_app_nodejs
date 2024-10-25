@@ -26,7 +26,7 @@ const AddGroupModal = () => {
         handleSubmit,
         setValue,
         watch,
-        formState: { errors },
+
     } = useForm<FieldValues>({
         defaultValues: {
             name: "",
@@ -72,17 +72,17 @@ const AddGroupModal = () => {
             }).then((callback) => {
                 if (callback.status === 201) {
                     toast.success('Create susscessfully')
-                } toast.error(callback.data)
+                    onClose()
+                }
 
             })
-                ;
         } catch (error) {
             const axiosError = error as AxiosError;
             if (axiosError.response && axiosError.response.data) {
-                const errorData = axiosError.response.data as { message: string}; 
+                const errorData = axiosError.response.data as { message: string };
                 toast.error(errorData.message);
             } else {
-                toast.error('An unexpected error occurred'); 
+                toast.error('An unexpected error occurred');
             }
         } finally {
             setIsLoading(false);
@@ -130,14 +130,13 @@ const AddGroupModal = () => {
                                 <Select
                                     isMulti
                                     options={users.map((user: any) => ({
-                                        value: user._id, // Use _id as value
-                                        label: `${user.firstName} ${user.lastName}`, // Display firstName and lastName
+                                        value: user._id,
+                                        label: `${user.firstName} ${user.lastName}`,
                                     }))}
                                     onChange={(value) => setValue("members", value, { shouldValidate: true })}
                                     value={members}
                                     isDisabled={isLoading}
                                     placeholder="Select members"
-                                    // Disable selected options from being reselected
                                     isOptionDisabled={(option) =>
                                         members.some((member: any) => member.value === option.value)
                                     }

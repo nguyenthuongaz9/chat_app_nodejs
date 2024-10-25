@@ -2,7 +2,8 @@ import useRoutes from "@/hooks/useRoutes"
 import ActionTooltip from "../ActionTooltip"
 import { useNavigate } from "react-router-dom"
 import { FiLogOut } from "react-icons/fi";
-import SignOut from "../SignOut";
+import { Logout } from "../Logout";
+
 
 
 
@@ -32,7 +33,7 @@ const BottomBar = () => {
                     </div>
                 ))}
 
-                <SignOut
+                <Logout
                     className={`p-[10px] w-full h-full flex items-center justify-center cursor-pointer hover:bg-[#333333] transition`}
                 >
                     <ActionTooltip
@@ -41,7 +42,7 @@ const BottomBar = () => {
                         <FiLogOut size={25} className="text-white" />
 
                     </ActionTooltip>
-                </SignOut>
+                </Logout>
 
 
 

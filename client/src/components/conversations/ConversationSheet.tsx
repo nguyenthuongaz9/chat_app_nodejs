@@ -26,12 +26,12 @@ export function ConversationSheet({
 
     const isModalOpen = open && type === 'CONVERSATION_SIDEBAR';
 
-    const ortherUser = conversation.participants.filter((participant:any) => participant._id !== user.id)[0]
+    const ortherUser = conversation?.participants?.filter((participant:any) => participant?._id !== user?.id)[0]
     
     const onClick = async () => {
         try {
             
-            const res = await axios.delete(`${HOST}/api/conversations/${conversation._id}`)
+            const res = await axios.delete(`${HOST}/api/conversations/${conversation?._id}`)
             if(res.status === 200){
                 toast.success(`Conversation deleted successfully`)
                 onClose()
@@ -50,9 +50,9 @@ export function ConversationSheet({
             <SheetContent className="bg-[#131313] text-white space-y-5">
               
                 <div className=" flex flex-col gap-4 items-center " >
-                    <img className="h-20 w-20 rounded-full object-cover" src={ortherUser.imageUrl} alt="userImage" />     
+                    <img className="h-20 w-20 rounded-full object-cover" src={ortherUser?.imageUrl} alt="userImage" />     
                     <p className="text-white font-semibold">
-                        {ortherUser.firstName} {ortherUser.lastName} 
+                        {ortherUser?.firstName} {ortherUser?.lastName} 
                     </p>
                 </div>
 
