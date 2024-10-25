@@ -52,9 +52,9 @@ const NavigationAction = () => {
 
                 >
                     <SignOut>
-                        <IoLogOutOutline size={25} className="text-white"/>
+                        <IoLogOutOutline size={25} className="text-white" />
                     </SignOut>
-                   
+
                 </ActionTooltip>
                 <ActionTooltip
                     label={user.firstName + " " + user.lastName}
@@ -62,7 +62,7 @@ const NavigationAction = () => {
                     side="right"
                 >
 
-                    <UserAvatar imageUrl={user.imageUrl} alt="usernam"  />
+                    <UserAvatar userId={user.id} imageUrl={user.imageUrl} alt="username" />
                 </ActionTooltip>
 
             </div>}

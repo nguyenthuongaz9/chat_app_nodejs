@@ -3,23 +3,38 @@ import Message from '../models/message.js';
 export const createMessage = (io) => async (req, res) => {
     try {
         const userId = req.userId;
-        const body = req.body;
+        const body = req.body; 
+        const file = req.file; 
 
         const { message, conversationId } = body;
 
         if (!userId) {
             return res.status(401).json({ message: 'Unauthorized' });
         }
-        if (!message || !conversationId) {
-            return res.status(400).json({ message: 'Invalid request' });
+        if (!message && !file) {
+            return res.status(400).json({ message: 'Message content or file is required' });
+        }
+        if (!conversationId) {
+            return res.status(400).json({ message: 'Invalid request: conversationId is required' });
         }
 
-        const newMessage = await Message.create({
-            conversationId,
-            sender: userId,
-            content: message,
-        })
-        
+        let newMessage;
+
+        if (!file) {
+            newMessage = await Message.create({
+                conversationId,
+                sender: userId,
+                content: message,
+            });
+        } else {
+            const fileUrl = `${req.protocol}://${req.get('host')}/uploads/messages/${file.filename}`;
+            newMessage = await Message.create({
+                conversationId,
+                sender: userId,
+                fileUrl: fileUrl,
+              
+            });
+        }
 
         if (!newMessage) {
             return res.status(400).json({ message: 'Failed to create message' });
@@ -28,12 +43,12 @@ export const createMessage = (io) => async (req, res) => {
         const populatedMessage = await newMessage.populate('sender', ['_id', 'lastName', 'firstName', 'imageUrl']);
 
         io.emit(`new_message_${conversationId}`, populatedMessage);
-        console.log(`Emitted new_message event to conversationId: ${conversationId}`, populatedMessage);
+
         return res.status(201).json({ message: populatedMessage });
-        
+
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'INTERNAL SERVER ERROR' });
+        console.error(error);
+        return res.status(500).json({ message: 'INTERNAL SERVER ERROR' });
     }
 };
 

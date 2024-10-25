@@ -19,10 +19,10 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   if (!isAuthenticated || !user || !user.isVerify || !user.isSetupProfile) {
     return <Navigate to='/auth' replace />;
   }
-  if(!user.isVerify){
+  if (!user.isVerify) {
     return <Navigate to='/verify-email' replace />;
   }
-  if(!user.isSetupProfile){
+  if (!user.isSetupProfile) {
     return <Navigate to='/setup-profile' replace />;
   }
 
@@ -41,21 +41,18 @@ const VerifyRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 const AuthRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated , user } = useAuthStore();
+  const { isAuthenticated, user } = useAuthStore();
 
-  if(!isAuthenticated){
+  if (!isAuthenticated) {
     return <>{children}</>;
   }
-  if(!user.isVerify){
+  if (!user.isVerify) {
     return <Navigate to='/verify-email' replace />;
   }
-  if(!user.isSetupProfile){
+  if (!user.isSetupProfile) {
     return <Navigate to='/setup-profile' replace />;
   }
-
   return <Navigate to='/conversations' replace />;
-
- 
 };
 
 const SetUpProfileRoute = ({ children }: { children: React.ReactNode }) => {

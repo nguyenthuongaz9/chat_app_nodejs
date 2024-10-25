@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 interface useUserScrollProps {
-  userRef: React.RefObject<HTMLDivElement>;
+  userRef: React.RefObject<HTMLDivElement> | null;
   shouldLoadMore: boolean;
   loadMoreTop: () => void;
   loadMoreBottom: () => void;

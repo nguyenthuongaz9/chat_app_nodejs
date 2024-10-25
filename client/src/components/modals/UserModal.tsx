@@ -24,7 +24,7 @@ type FormValues = {
 };
 
 export function UserModal() {
-    const { open, type ,onOpen, onClose } = useModalStore();
+    const { open, type, onClose } = useModalStore();
     const { user, setUser } = useAuthStore();
 
     const { register, setValue, handleSubmit } = useForm<FormValues>({
@@ -60,28 +60,28 @@ export function UserModal() {
             formData.append('image', file)
         }
 
-    
+
 
         await axios.post(`${HOST}/api/users/${user.id}`, formData)
-        .then(res => {
-            if (res.status === 200) {
-                toast.success('Profile updated successfully');
-                setUser(res.data);
-                console.log("Updated user data:", res.data);
-            } else {
-                toast.error('Error updating profile');
-            }
-        })
-        .finally(() => {
-            location.reload();
-        });
+            .then(res => {
+                if (res.status === 200) {
+                    toast.success('Profile updated successfully');
+                    setUser(res.data);
+                    console.log("Updated user data:", res.data);
+                } else {
+                    toast.error('Error updating profile');
+                }
+            })
+            .finally(() => {
+                location.reload();
+            });
 
 
     };
 
 
     return (
-        <Dialog open={isModalOpen} onOpenChange={(e)=> onClose() }>
+        <Dialog open={isModalOpen} onOpenChange={(e) => onClose()}>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle>Edit profile</DialogTitle>

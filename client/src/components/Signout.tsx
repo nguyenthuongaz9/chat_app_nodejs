@@ -8,9 +8,11 @@ import toast from 'react-hot-toast'
 
 
 const SignOut = ({
-    children
+    children,
+    className
 }: {
-    children: React.ReactNode
+    children: React.ReactNode,
+    className?: string;
 }) => {
 
     const onClick = async () => {
@@ -26,7 +28,7 @@ const SignOut = ({
     }
 
     return (
-        <Button onClick={onClick}>
+        <Button onClick={onClick} className={className}>
             {children}
         </Button>
     )

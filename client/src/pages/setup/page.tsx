@@ -24,9 +24,7 @@ const SetupPage = () => {
     formData.append('firstName', data.firstName);
     formData.append('lastName', data.lastName);
     formData.append('file', data.file);
-    formData.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
-    })
+
 
     const response = await axios.post(`${HOST}/api/users`, formData, {
       withCredentials: true,

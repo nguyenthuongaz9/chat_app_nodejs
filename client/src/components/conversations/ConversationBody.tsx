@@ -2,7 +2,7 @@ import { ElementRef, useRef } from "react";
 import { ScrollArea } from "../ui/scroll-area";
 import useMessageQuery from "@/hooks/useMessageQuery";
 import useMessageScroll from "@/hooks/useMessageScroll";
-import { Loader2 } from "lucide-react";
+import { File, Loader2 } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -34,7 +34,6 @@ const ConversationBody = () => {
     queryKey,
   });
 
-  console.log(data)
 
   useMessageScroll({
     messageRef,
@@ -83,6 +82,7 @@ const ConversationBody = () => {
               <div key={pageIndex} className="w-full p-2 space-y-4">
                 {page.messages.slice().reverse().map((message: any, messageIndex: any) => {
                   const isCurrentUser = message.sender._id === user.id;
+                  
                   return (
                     <div
                       key={message.id || `${pageIndex}-${messageIndex}`}
@@ -98,9 +98,32 @@ const ConversationBody = () => {
                             <span className="text-zinc-400">{message.sender.firstName} {message.sender.lastName}</span>
                             <span className="text-xs text-gray-500">{format(new Date(message.createdAt), 'p')}</span>
                           </div>
-                          <div className={`${isCurrentUser ? 'bg-blue-400 text-white' : 'bg-gray-200 text-black'} text-sm md:text-md rounded-lg p-2 mt-2`}>
-                            {message.content}
-                          </div>
+                          {message?.fileUrl ? (
+                            <div className="mt-2">
+                              {message.fileUrl.match(/\.(jpeg|jpg|gif|png)$/i) ? (
+                                <img
+                                  src={message.fileUrl}
+                                  alt="attached"
+                                  className="max-w-full h-auto rounded-lg"
+                                />
+                              ) : (
+                                <div className="flex items-center gap-2">
+                                  <File className="h-6 w-6 text-gray-600" />
+                                  <a
+                                    href={message.fileUrl}
+                                    download
+                                    className="text-blue-500 hover:underline"
+                                  >
+                                    Tải xuống file
+                                  </a>
+                                </div>
+                              )}
+                            </div>
+                          ) : (
+                            <div className={`${isCurrentUser ? 'bg-blue-400 text-white' : 'bg-gray-200 text-black'} text-sm md:text-md rounded-lg p-2 mt-2`}>
+                              {message.content}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>

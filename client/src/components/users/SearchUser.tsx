@@ -42,7 +42,6 @@ const SearchUser = () => {
     });
 
     const onClick = async (id: string) => {
-        console.log(`Opening conversation with user ${id}`)
         try {
             const formData = new FormData();
             const isGroup = false;
@@ -53,9 +52,6 @@ const SearchUser = () => {
             }
             formData.append('isGroup', isGroup.toString());
 
-            formData.forEach((value, key) => {
-                console.log(key, value);
-            });
 
             const response = await axios.post(`${HOST}/api/conversations`, formData, {
                 headers: {

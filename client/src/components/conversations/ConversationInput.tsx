@@ -16,6 +16,7 @@ import axios from "axios";
 import { HOST } from "@/utils/constaints";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useModalStore } from "@/hooks/useModalStore";
 
 
 const formSchema = z.object({
@@ -23,9 +24,9 @@ const formSchema = z.object({
 });
 
 export const ConversationInput = () => {
+  const { onOpen } = useModalStore()
 
   const { id } = useParams()
-  console.log(id)
 
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -70,7 +71,7 @@ export const ConversationInput = () => {
                 <div className="relative">
                   <button
                     type="button"
-                    onClick={() => {}}
+                    onClick={() => onOpen(true, 'UPLOAD_FILE', { conversationId: id})}
                     className="absolute top-3 left-4 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center"
                   >
                     <Plus className="text-white dark:text-[#313338]" />

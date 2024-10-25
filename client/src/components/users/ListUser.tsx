@@ -67,10 +67,6 @@ const ListUser = () => {
       }
       formData.append('isGroup', isGroup.toString());
 
-      formData.forEach((value, key) => {
-        console.log(key, value);
-      });
-
       const response = await axios.post(`${HOST}/api/conversations`, formData, {
         headers: {
           'Content-Type': 'application/json',

@@ -27,11 +27,7 @@ const FileUpload = ({ type, value, onChange }: FileUploadProps) => {
         onChange(null);
     };
 
-    const TypeOfValue = (value: any) => {
-        return typeof value;
-    }
 
-    console.log(TypeOfValue(value))
 
     return (
         <div

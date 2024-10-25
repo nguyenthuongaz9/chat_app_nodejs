@@ -8,9 +8,6 @@ export const createProfile = async (req, res, next) =>{
 
         const { firstName, lastName } = body
 
-        
-
-        console.log(body)
         if(!firstName || !lastName){
             return res.status(400).json({ message: 'Please provide firstName and lastName' });
         }
@@ -53,9 +50,6 @@ export const editProfile = async (req, res, next) =>{
         const userId = req.params.userId;;
 
         const { firstName, lastName } = body
-
-        console.log('file: ' + file)
-
 
         if(!userId){
             return res.status(401).json({ message: 'Unauthorized' });

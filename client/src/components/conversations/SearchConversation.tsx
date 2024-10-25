@@ -29,9 +29,9 @@ const SearchConversation = () => {
         isFetchingNextPage,
         hasPreviousPage,
         isFetchingPreviousPage,
-      } = useConversationQuery({
+    } = useConversationQuery({
         queryKey,
-      });
+    });
 
     useConversationScroll({
         conversationRef,
@@ -39,11 +39,11 @@ const SearchConversation = () => {
         loadMoreTop: fetchPreviousPage,
         shouldLoadMore: !isFetchingNextPage && !isFetchingPreviousPage && (!!hasNextPage || !!hasPreviousPage),
         isFetchingNextPage: isFetchingNextPage || isFetchingPreviousPage,
-      });
+    });
 
 
     return (
-        <div className="mt-5">
+        <div className="mt-5 w-full">
             <button
                 onClick={() => setOpen(true)}
                 className="group px-2 py-2 rounded-md flex items-center gap-x-2 w-full bg-zinc-700 hover:bg-zinc-600 transition"
@@ -86,7 +86,7 @@ const SearchConversation = () => {
                                                 </p>
                                             </div>
                                         </div>
-                                        
+
                                     </CommandItem>
                                 );
                             })

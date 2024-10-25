@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 const messageSchema = new mongoose.Schema({
   conversationId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Conversation', 
+    ref: 'Conversation',
     required: true,
   },
   sender: {
@@ -17,17 +17,18 @@ const messageSchema = new mongoose.Schema({
   },
   content: {
     type: String,
-    required: true,
+    required: false,
   },
   createdAt: {
     type: Date,
     default: Date.now,
   },
-  fileUrl:{
+  fileUrl: {
     type: String,
     default: null,
     required: false,
-  }
+  },
+
 });
 
 const Message = mongoose.model("Message", messageSchema);
